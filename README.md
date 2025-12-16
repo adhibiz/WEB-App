@@ -159,3 +159,103 @@ Message → Data
 
 Error check → FCS
 
+# Explain RIP routing protocol with configuration. 
+
+# RIP (Routing Information Protocol)
+
+## Introduction
+RIP (Routing Information Protocol) is a **distance-vector routing protocol** used in computer networks to find the best path between networks. It uses **hop count** as its routing metric.
+
+- **Maximum hop count:** 15  
+- **Hop count 16:** Network is unreachable  
+- **Routing updates:** Every 30 seconds  
+
+---
+
+## Working of RIP
+- Each router sends its routing table to neighboring routers every 30 seconds.
+- The best route is selected based on the **lowest hop count**.
+- RIP uses the **Bellman-Ford algorithm** to calculate routes.
+
+---
+
+## Loop Prevention Techniques
+RIP prevents routing loops using:
+1. **Split Horizon** – Routes are not advertised back to the interface from which they were learned.
+2. **Poison Reverse** – A failed route is advertised with hop count 16.
+3. **Hold-down Timer** – Prevents routers from accepting incorrect updates for a certain time.
+
+---
+
+## Versions of RIP
+### RIP v1
+- Classful routing protocol
+- Does not support VLSM
+
+### RIP v2
+- Classless routing protocol
+- Supports **VLSM and CIDR**
+- Uses multicast address **224.0.0.9**
+
+---
+
+## Example Network
+
+~~~
+PC1 --- R1 --- R2 --- R3 --- PC2
+~~~
+
+
+- Network at R1: 192.168.1.0  
+- Network at R2: 10.0.0.0  
+- Network at R3: 172.16.0.0  
+
+**Path chosen by RIP:**  
+PC1 → R1 → R2 → R3 → PC2  
+**Hop count = 2**, so this path is selected.
+
+---
+
+## RIP Configuration Example (Cisco)
+
+### Router R1
+```plaintext
+Router(config)# router rip
+Router(config-router)# version 2
+Router(config-router)# network 192.168.1.0
+```
+```plaintext
+Router(config)# router rip
+Router(config-router)# version 2
+Router(config-router)# network 10.0.0.0
+```
+```plaintext
+Router(config)# router rip
+Router(config-router)# version 2
+Router(config-router)# network 172.16.0.0
+```
+Explanation of Commands
+
+router rip – Enables RIP routing
+
+version 2 – Enables RIP version 2 (classless)
+
+network – Advertises connected networks
+
+Advantages of RIP
+
+Simple and easy to configure
+
+Widely supported
+
+Suitable for small networks
+
+Limitations of RIP
+
+Maximum hop count of 15
+
+Slow convergence
+
+Not suitable for large networks
+
+
