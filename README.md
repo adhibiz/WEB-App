@@ -3,6 +3,7 @@
 ## Explain Ethernet frame format 
 
 <img width="1910" height="538" alt="image" src="https://github.com/user-attachments/assets/bcebe991-d289-4dcd-92be-54461efc4d85" />
+
 ### 1. Preamble (7 bytes)
 Pattern: 10101010 repeated
 
